@@ -8,7 +8,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = 'Never_tell'
 
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app)
+
 
 connect_db(app)
 db.create_all()
@@ -41,6 +43,12 @@ def get_new_user_info():
     db.session.commit()
 
     return redirect("/users")
+
+@app.get("/users/<int:user_id>")
+def user_info(user_id):
+    """Show the info of selected user"""
+    selected = User.query.get_or_404(user_id)
+    return render_template("user_detail.html", user=selected)
 
 
 

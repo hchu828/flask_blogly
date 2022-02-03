@@ -24,5 +24,5 @@ class User(db.Model):
     last_name = db.Column(  db.String(50),
                             nullable=False)
     image_url = db.Column(  db.String(500), 
-                            default="Insert default picture here")
+                            default="https://www.google.com/url?sa=i&url=https%3A%2F%2Farca.live%2Fb%2Fgenshin%2F39440165%3Fmode%3Dbest&psig=AOvVaw22i5aNM1oSAuk4Wl5ewjgi&ust=1643935779319000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCMC5ppqo4vUCFQAAAAAdAAAAABAD")
         
