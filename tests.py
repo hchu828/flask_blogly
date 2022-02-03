@@ -58,3 +58,20 @@ class UserViewTestCase(TestCase):
             html = resp.get_data(as_text=True)
             self.assertIn("test_first", html)
             self.assertIn("test_last", html)
+
+    def test_get_new_user_form(self):
+        with self.client as c:
+            resp = c.get("/users/new")
+            self.assertEqual(resp.status_code, 200)
+            html = resp.get_data(as_text=True)
+            self.assertIn("<!-- used for testing new user form -->", html)
+
+    def test_get_new_user_info(self):
+        with self.client as c:
+            resp = c.post('/users/new',
+                            data={
+                                'first_name':'first_name',
+                                'last_name':'last_name',
+                                'url' : 'image_url' })
+            self.assertEqual(resp.status_code, 302)
+            self.assertIn(resp.location, "http://localhost/users")

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<!-- used for testing new user form -->
 <h1>Create a user</h1>
 <form action="/users/new" method="POST">
     <label>
@@ -12,7 +13,9 @@
     <label>
         Image URL<input type="url" name="url" value="">
     </label>
-    <button>Add</button>
+    <button class="btn btn-success">
+        Add
+    </button>
 </form>
 
 {% endblock %}

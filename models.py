@@ -2,6 +2,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+DEFAULT_IMAGE_URL = "https://ac-p.namu.la/20211130s1/b4f40cfe4ddd6dd15162c5e7d695fea157dae5cfadea8f2f6561ba83107848ab.png?type=orig"
+
 def connect_db(app):
     """Connect to database."""
 
@@ -24,5 +26,5 @@ class User(db.Model):
     last_name = db.Column(  db.String(50),
                             nullable=False)
     image_url = db.Column(  db.String(), 
-                            default="https://ac-p.namu.la/20211130s1/b4f40cfe4ddd6dd15162c5e7d695fea157dae5cfadea8f2f6561ba83107848ab.png?type=orig")
+                            default=DEFAULT_IMAGE_URL)
         
