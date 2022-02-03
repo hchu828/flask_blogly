@@ -70,8 +70,9 @@ def change_user_details(user_id):
 
 @app.post("/delete_user/<int:user_id>")
 def delete_user(user_id):
-    delete_user = User.query.get_or_404(user_id)
-    db.session.delete(delete_user)
+    # delete_user = User.query.get_or_404(user_id)
+    User.query.filter_by(id=user_id).delete()
+    # db.session.delete(delete_user)
     db.session.commit()
 
     return redirect("/users")

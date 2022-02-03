@@ -70,8 +70,20 @@ class UserViewTestCase(TestCase):
         with self.client as c:
             resp = c.post('/users/new',
                             data={
-                                'first_name':'first_name',
-                                'last_name':'last_name',
+                                'first_name':'sssass',
+                                'last_name':'bbbbb',
                                 'url' : 'image_url' })
             self.assertEqual(resp.status_code, 302)
             self.assertIn(resp.location, "http://localhost/users")
+            userids = db.session.query(User.id).all()
+            self.assertEqual(len(userids), 3)
+
+    def test_delete(self):
+        with self.client as c:
+            resp = c.post('/delete_user/1')
+            self.assertEqual(resp.status_code, 302)
+            self.assertIn(resp.location, "http://localhost/users")
+            userids = db.session.query(User.id).all()
+            self.assertEqual(len(userids), 2)
+
+
