@@ -18,14 +18,14 @@ db.create_all()
 @app.get('/')
 def get_home():
     """Get to user list page(will change)"""
-    users = db.session.query(User.first_name,User.last_name).all()
+    users = db.session.query(User.first_name,User.last_name, User.id).all()
     return render_template("user_list.html", users=users)
 
 @app.get('/users')
 def get_users():
     """Get to user list page"""
 
-    users = db.session.query(User.first_name,User.last_name).all()
+    users = db.session.query(User.first_name,User.last_name, User.id).all()
     return render_template("user_list.html", users=users)
 
 @app.get("/users/new")
@@ -50,7 +50,11 @@ def user_info(user_id):
     selected = User.query.get_or_404(user_id)
     return render_template("user_detail.html", user=selected)
 
+@app.post("/delete_user/<int:user_id>")
+def delete_user(user_id):
+    delete_user = User.query.get_or_404(user_id)
+    db.session.delete(delete_user)
+    db.session.commit()
 
-
-
+    return redirect("/users")
 
