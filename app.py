@@ -26,5 +26,23 @@ def get_users():
     users = db.session.query(User.first_name,User.last_name).all()
     return render_template("user_list.html", users=users)
 
+@app.get("/users/new")
+def get_new_user_form():
+    """Get new user form"""
+    return render_template("new_user_form.html")
+
+@app.post("/users/new")
+def get_new_user_info():
+    """Get new user info from form"""
+    new_user = User(first_name=request.form["first_name"],
+                    last_name=request.form["last_name"],
+                    image_url=request.form["url"])
+    db.session.add(new_user)
+    db.session.commit()
+
+    return redirect("/users")
+
+
+
 
 
