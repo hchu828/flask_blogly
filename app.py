@@ -36,9 +36,15 @@ def get_new_user_form():
 @app.post("/users/new")
 def get_new_user_info():
     """Get new user info from form"""
-    new_user = User(first_name=request.form["first_name"],
+    image_url = request.form["url"]
+    if image_url == "":
+        new_user = User(first_name=request.form["first_name"],
+                    last_name=request.form["last_name"])
+    else:
+        new_user = User(first_name=request.form["first_name"],
                     last_name=request.form["last_name"],
-                    image_url=request.form["url"])
+                    image_url=request.form["url"])        
+
     db.session.add(new_user)
     db.session.commit()
 
@@ -49,6 +55,18 @@ def get_user_details(user_id):
     """Show the info of selected user"""
     selected = User.query.get_or_404(user_id)
     return render_template("user_detail.html", user=selected)
+
+@app.post("/users/<int:user_id>")
+def change_user_details(user_id):
+    """Get back to user detail with updates"""
+    user = User.query.get_or_404(user_id)
+    user.first_name=request.form["first_name"]
+    user.last_name=request.form["last_name"]
+    user.image_url=request.form["url"]
+    db.session.commit()
+
+    return redirect("/users")
+    
 
 @app.post("/delete_user/<int:user_id>")
 def delete_user(user_id):

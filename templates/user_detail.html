@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>{{user.url}}{{user.first_name}} {{user.last_name}}</p>
+<img src="{{user.image_url}}" alt="user image">
+<p>{{user.first_name}} {{user.last_name}}</p>
 
 <form action="/users/{{user.id}}/edit">
     <button> Edit</button>
