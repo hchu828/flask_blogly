@@ -2,6 +2,17 @@
 
 {% block content %}
 <h1>Edit a user</h1>
-{{ user[0] }} {{ user[1] }}
+<form>
+    <label>
+        First Name<input type="text" name="first_name" value="{{user.first_name}}">
+    </label>
+    <label>
+        Last Name<input type="text" name="last_name" value="{{user.last_name}}">
+    </label>
+    <label>
+        Image URL<input type="url" name="url" value="{{user.image_url}}">
+    </label>
+    <a class="btn btn-primary" formaction="/users/{{user.id}}" formmethod="GET">Cancel</a>
+</form>
 
 {% endblock %}

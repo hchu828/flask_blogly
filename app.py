@@ -45,7 +45,7 @@ def get_new_user_info():
     return redirect("/users")
 
 @app.get("/users/<int:user_id>")
-def user_info(user_id):
+def get_user_details(user_id):
     """Show the info of selected user"""
     selected = User.query.get_or_404(user_id)
     return render_template("user_detail.html", user=selected)
@@ -57,4 +57,10 @@ def delete_user(user_id):
     db.session.commit()
 
     return redirect("/users")
+
+@app.get("/users/<int:user_id>/edit")
+def get_edit_user_info(user_id):
+    """Get user info edit form"""
+    user = User.query.get_or_404(user_id)
+    return render_template("user_edit.html", user=user)
 
