@@ -9,4 +9,20 @@
     <a class="btn btn-primary" href="/users/{{user.id}}/edit">Edit</a>
     <button class="btn btn-danger" type="submit" formaction="/delete_user/{{user.id}}" formmethod="POST">Delete</button>
 </form>
+<h1>Posts</h1>
+<form>
+    <ul>
+        {%for post in posts%}
+    <li>
+        <a href="/posts/{{ posts[1] }}">
+            {{ post[1] }}
+        </a>
+    </li>
+    {%endfor%}
+    </ul>
+    <button class="btn btn-primary" type= "submit" formaction="/add_post">Add Post</button>
+</form>
+
+
+
 {% endblock %}

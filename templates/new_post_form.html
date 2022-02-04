@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- used for testing new post form -->
+<h1>Add Post</h1>
+<form action="/users/newpost" method="POST">
+    <label>
+        Title<input type="text" name="title" value="">
+    </label>
+    <label>
+        Content<input type="text" name="content" value="">
+    </label>
+    <button class = "btn btn-light" formaction = "/users/{{user_id}}" formmethod ="GET">
+        Cancel
+    </button>
+    <button class="btn btn-success">
+        Add
+    </button>
+</form>
+
+{% endblock %}
