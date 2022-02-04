@@ -19,6 +19,7 @@ db.create_all()
 def get_home():
     """Get to user list page(will change)"""
     users = db.session.query(User.first_name,User.last_name, User.id).all()
+    
     return render_template("user_list.html", users=users)
 
 @app.get('/users')
@@ -26,6 +27,7 @@ def get_users():
     """Get to user list page"""
 
     users = db.session.query(User.first_name,User.last_name, User.id).all()
+
     return render_template("user_list.html", users=users)
 
 @app.get("/users/new")
@@ -35,7 +37,7 @@ def get_new_user_form():
 
 @app.post("/users/new")
 def get_new_user_info():
-    """Get new user info from form"""
+    """Get new user info from form TODO: simplify if-else statement"""
     image_url = request.form["url"]
     if image_url == "":
         new_user = User(first_name=request.form["first_name"],
@@ -54,7 +56,16 @@ def get_new_user_info():
 def get_user_details(user_id):
     """Show the info of selected user"""
     selected = User.query.get_or_404(user_id)
+
     return render_template("user_detail.html", user=selected)
+    
+
+@app.get("/users/<int:user_id>/edit")
+def get_edit_user_info(user_id):
+    """Get user info edit form"""
+    user = User.query.get_or_404(user_id)
+
+    return render_template("user_edit.html", user=user)
 
 @app.post("/users/<int:user_id>")
 def change_user_details(user_id):
@@ -66,20 +77,13 @@ def change_user_details(user_id):
     db.session.commit()
 
     return redirect("/users")
-    
 
 @app.post("/delete_user/<int:user_id>")
 def delete_user(user_id):
-    # delete_user = User.query.get_or_404(user_id)
-    User.query.filter_by(id=user_id).delete()
-    # db.session.delete(delete_user)
+    """Deletes user from database and redirect to user list page"""
+    delete_user = User.query.get_or_404(user_id)
+    db.session.delete(delete_user)
     db.session.commit()
 
     return redirect("/users")
-
-@app.get("/users/<int:user_id>/edit")
-def get_edit_user_info(user_id):
-    """Get user info edit form"""
-    user = User.query.get_or_404(user_id)
-    return render_template("user_edit.html", user=user)
 
